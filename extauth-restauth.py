@@ -186,7 +186,7 @@ class ExtAuthLoop:
                     # some RestAuth error...
                     pass
                 
-            self._write(ret)
+                self._write(ret)
         
         pass
     
