@@ -29,7 +29,7 @@ class ExtAuthRestAuth:
         :return: True if the user/password combination is correct and the user is in the specified group, False if not.
         """
         
-        user = restauth_user.User(username)
+        user = restauth_user.User(self.connection, username)
         
         # password (authentication) check
         if not user.verify_password(password):
@@ -57,7 +57,7 @@ class ExtAuthRestAuth:
         if self.group is None:
             try:
                 # just check if user exists
-                restauth_user.get(username)
+                restauth_user.get(self.connection, username)
                 return True
             except:
                 # did not exist / error
@@ -65,7 +65,7 @@ class ExtAuthRestAuth:
             
         else:
             # check if user in group
-            user = restauth_user.User(username)
+            user = restauth_user.User(self.connection, username)
             try:
                 return user.in_group(self.group)
             except:
@@ -89,7 +89,7 @@ class ExtAuthRestAuth:
         
         # password change
         try:
-            user = restauth_user.User(username)
+            user = restauth_user.User(self.connection, username)
             user.set_password(password)
             return True
         except:
